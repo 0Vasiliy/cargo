@@ -58,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cargo in filteredCargoList" :key="cargo.id" >
+          <tr v-for="cargo in filteredCargoList" :key="cargo.id" :style="getStatusStyle(cargo.status)">
             <td>{{ cargo.id }}</td>
             <td>{{ cargo.name }}</td>
             <td>{{ cargo.status }}</td>
@@ -94,7 +94,7 @@
           destination: "",
           departureDate: "",
           status: "Ожидает отправки"
-        },       
+        }, 
       };
     },
     computed: {
@@ -118,6 +118,7 @@
       },   
       updateStatus(cargo) {       
         const today = new Date();
+      
         const departureDate = new Date(cargo.departureDate);
         if (cargo.status === 'Доставлен' && departureDate > today) {
           alert("Ошибка: Невозможно установить статус 'Доставлен', дата отправления находится в будущем.");
@@ -128,7 +129,21 @@
       filterCargo() {
         // Фильтрация груза по статусу
         // computed filteredCargoList обновит список автоматически
+      },
+      getStatusStyle(status) {
+      switch (status) {
+        case 'Доставлен':
+          return { background: 'green' };
+        case 'Задержан':
+          return { background: 'red' };
+        case 'В пути':
+          return { background: 'yellow' };
+        case 'Ожидает отправки':
+          return { background: 'white' };
+        default:
+          return {};
       }
+    }
     }, 
     setup(){  
       const cargosStore = useCargosStore();
@@ -136,7 +151,8 @@
       return {
         cargosStore 
     }
-  },
+    },
+   
   };
   </script>
   
