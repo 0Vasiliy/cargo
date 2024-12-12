@@ -1,39 +1,44 @@
 <template>
   <div class="cargo-tracker">
-    <h1>Отслеживание грузов</h1>
-    <CargoForm :cities="cities" :cargo="newCargo" @add-cargo="addCargo" />
-    <StatusFilter :selectedStatus="selectedStatus" @filter-cargo="filterCargo"/>
-    <table>
-        <thead>
-          <tr>
-            <th>Номер груза</th>
-            <th>Название груза</th>
-            <th>Статус груза</th>
-            <th>Пункт отправления</th>
-            <th>Пункт назначения</th>
-            <th>Дата отправления</th>
-            <th>Изменить статус</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="cargo in filteredCargoList" :key="cargo.id" :style="getStatusStyle(cargo.status)">
-            <td>{{ cargo.id }}</td>
-            <td>{{ cargo.name }}</td>
-            <td>{{ cargo.status }}</td>
-            <td>{{ cargo.origin }}</td>
-            <td>{{ cargo.destination }}</td>
-            <td>{{ cargo.departureDate }}</td>
-            <td>
-              <select v-model="cargo.status" @change="updateStatus(cargo)">
-                <option value="Ожидает отправки">Ожидает отправки</option>
-                <option value="В пути">В пути</option>
-                <option value="Доставлен">Доставлен</option>
-                <option value="Задержан">Задержан</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-    </table>
+    <div class="container">
+      <div class="row">
+        <h1>Отслеживание грузов</h1>
+        <CargoForm :cities="cities" :cargo="newCargo" @add-cargo="addCargo" />
+        <StatusFilter :selectedStatus="selectedStatus" @filter-cargo="filterCargo"/>
+        <table>
+            <thead>
+              <tr>
+                <th>Номер груза</th>
+                <th>Название груза</th>
+                <th>Статус груза</th>
+                <th>Пункт отправления</th>
+                <th>Пункт назначения</th>
+                <th>Дата отправления</th>
+                <th>Изменить статус</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="cargo in filteredCargoList" :key="cargo.id" :style="getStatusStyle(cargo.status)">
+                <td>{{ cargo.id }}</td>
+                <td>{{ cargo.name }}</td>
+                <td>{{ cargo.status }}</td>
+                <td>{{ cargo.origin }}</td>
+                <td>{{ cargo.destination }}</td>
+                <td>{{ cargo.departureDate }}</td>
+                <td>
+                  <select v-model="cargo.status" @change="updateStatus(cargo)">
+                    <option value="Ожидает отправки">Ожидает отправки</option>
+                    <option value="В пути">В пути</option>
+                    <option value="Доставлен">Доставлен</option>
+                    <option value="Задержан">Задержан</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -136,4 +141,45 @@ export default {
     padding: 10px;
     width: 100%;
   }
+  @media (min-width: 1400px) {
+    .container {
+        max-width: 1920px;
+    }
+}
+@media(max-width: 800px) {
+    table thead {
+        left: -9999px;
+        position: absolute;
+        visibility: hidden;
+    }
+    table tr {
+        border-bottom: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+    }
+    table td {
+        border: 1px solid;
+        margin: 0 -1px -1px 0;
+        padding-top: 35px; /* дополнительный отступ для предотвращения склеивания заголовков */
+        position: relative;
+        width: 50%;
+    }
+    /* Отображение span заголовков */
+    table td span {
+        display: block;
+    }
+    th, td{
+      font-size: 14px;
+    }
+    h1{
+      font-size: 24px;
+    }
+}
+@media(max-width: 400px){
+  h1{
+      font-size: 20px;
+    }
+}
 </style>

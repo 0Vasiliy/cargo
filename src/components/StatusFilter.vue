@@ -1,14 +1,14 @@
 <template>
-  <div class="filter">
-    <label for="statusFilter">Фильтр по статусу:</label>
-    <select :value="selectedStatus" @change="filterCargo">
-      <option value="">Все</option>
-      <option value="В пути">В пути</option>
-      <option value="Ожидает отправки">Ожидает отправки</option>
-      <option value="Доставлен">Доставлен</option>
-      <option value="Задержан">Задержан</option>
-    </select>
-  </div>
+  <div class="filter"> 
+      <label for="statusFilter" style='margin-right: 20px;margin-left: 20px;'>Фильтр по статусу:</label>
+      <select :value="selectedStatus" @change="filterCargo">
+        <option value="">Все</option>
+        <option value="В пути">В пути</option>
+        <option value="Ожидает отправки">Ожидает отправки</option>
+        <option value="Доставлен">Доставлен</option>
+        <option value="Задержан">Задержан</option>
+      </select>
+    </div>
 </template>
 
 <script>
@@ -29,5 +29,16 @@ export default {
   }
   select{
     padding: 5px;
+  }
+  @media (max-width: 1400px){
+    input, select{
+      width: 150px;
+      height: 28px;
+    }
+  }
+  @media (max-width: 400px){
+    .filter{
+      margin-right: auto;
+    }
   }
 </style>
