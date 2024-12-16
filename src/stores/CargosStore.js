@@ -7,7 +7,7 @@ state: () => ({
 }),
 actions:{
   fetchCargos(){
-        axios.get('../../db.json')
+        axios.get('../../db.json') //Deploy ../db.json
         .then(response => {
              this.cargoList = response.data;
             })
